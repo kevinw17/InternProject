@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/streamersItem"
+        android:icon="@drawable/person"
+        android:title="Streamers" />
+    <item
+        android:title="Item 2"
+        android:icon="@drawable/ic_launcher_foreground"/>
+    <item
+        android:title="Item 3"
+        android:icon="@drawable/ic_launcher_foreground"/>
+</menu>
