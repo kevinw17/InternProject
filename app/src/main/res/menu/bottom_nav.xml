@@ -2,13 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/streamersItem"
-        android:icon="@drawable/person"
-        android:title="Streamers" />
+        android:id="@+id/navigation_tweet"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Tweets" />
+
     <item
-        android:title="Item 2"
-        android:icon="@drawable/ic_launcher_foreground"/>
+        android:id="@+id/navigation_dashboard"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/title_dashboard" />
+
     <item
-        android:title="Item 3"
-        android:icon="@drawable/ic_launcher_foreground"/>
+        android:id="@+id/navigation_notifications"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/title_notifications" />
+
 </menu>
