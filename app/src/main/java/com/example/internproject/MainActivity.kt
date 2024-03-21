@@ -29,9 +29,12 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when(menuItem.itemId){
                 R.id.navigation_tweet -> {
-                    val fragmentUser : UserFragment = UserFragment()
+                    val accessToken = intent.getStringExtra("twitch_access_token")
+                    val fragmentUser = UserFragment()
+                    val args = Bundle()
+                    args.putString("twitch_access_token", accessToken)
+                    fragmentUser.arguments = args
                     loadFragment(fragmentUser)
-
                 }
                 R.id.navigation_dashboard -> {
                     Toast.makeText(this, "Dashboard", Toast.LENGTH_SHORT).show()
@@ -42,8 +45,6 @@ class MainActivity : AppCompatActivity() {
             }
             false
         }
-
-
 
     }
     fun loadFragment(fragment: Fragment){

@@ -6,7 +6,7 @@
     tools:context=".UserFragment">
 
     <TextView
-        android:id="@+id/text_tweet"
+        android:id="@+id/text_user"
         android:text="Test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -71,7 +71,6 @@ dependencies {
     // LiveData
     implementation(libs.lifecycle.livedata.ktx)
 
-    implementation (libs.twitter4j.core)
     implementation (libs.lifecycle.runtime.ktx)
 }
 kapt {
