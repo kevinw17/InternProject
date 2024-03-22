@@ -29,11 +29,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when(menuItem.itemId){
                 R.id.navigation_tweet -> {
-                    val accessToken = intent.getStringExtra("twitch_access_token")
                     val fragmentUser = UserFragment()
-                    val args = Bundle()
-                    args.putString("twitch_access_token", accessToken)
-                    fragmentUser.arguments = args
                     loadFragment(fragmentUser)
                 }
                 R.id.navigation_dashboard -> {
