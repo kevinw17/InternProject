@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.internproject.databinding.ActivityEntryBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 class EntryActivity : AppCompatActivity() {
 
@@ -17,19 +18,20 @@ class EntryActivity : AppCompatActivity() {
         binding = ActivityEntryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val shaaredPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-        val twitchAccessToken = shaaredPreferences.getString("twitch_access_token", null)
+        val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        val twitchAccessToken = sharedPreferences.getString("twitch_access_token", null)
 
         if (twitchAccessToken != null) {
             val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("twitchAccessToken", twitchAccessToken)
             startActivity(intent)
         } else {
-            val clientId = "buojwn4j7smykbken5koabb6tg9m9m"
+            val clientId = TwitchConstants.clientId
             val redirectUri = "https://com.example.internproject"
 
             val twitchIntent = Intent(
                 Intent.ACTION_VIEW, Uri.parse(
-                    "https://id.twitch.tv/oauth2/authorize?client_id=$clientId&redirect_uri=$redirectUri&response_type=token&scope=user:read:follows")
+                    "https://id.twitch.tv/oauth2/authorize?client_id=$clientId&redirect_uri=$redirectUri&response_type=token&scope=user:read:email")
             )
 
             binding.btnToMain.setOnClickListener {

@@ -72,6 +72,8 @@ dependencies {
     implementation(libs.lifecycle.livedata.ktx)
 
     implementation (libs.lifecycle.runtime.ktx)
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.1")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
 }
 kapt {
     correctErrorTypes = true
