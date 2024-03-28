@@ -14,23 +14,18 @@ class Repository () {
 
     private val twitchRetrofitInstance = TwitchRetrofitInstance.apiService()
 
-   fun getUsers(authorizationToken: String, clientId: String, id: String, textView: TextView) {
-        twitchRetrofitInstance.getUsers("Bearer $authorizationToken", clientId, id).enqueue(object : Callback<Users> {
-            override fun onResponse(call: Call<Users>, response: Response<Users>) {
-                if (response.isSuccessful) {
-                    val successMessage = "GET Success: ${response.code()}"
-                    textView.text = successMessage
-                } else {
-                    val errorMessage = "GET Error: ${response.code()}"
-                    textView.text = errorMessage
-                }
-            }
+    fun getFollowedStreams(authorizationToken : String, clientId : String, userId : String) : Flow<List<Stream>?> = flow {
+        val response = twitchRetrofitInstance.getFollowedStreams(authorizationToken, clientId, userId).execute()
+        if(response.isSuccessful){
+            emit(response.body()?.data)
+        }
+    }.flowOn(Dispatchers.Default)
 
-            override fun onFailure(call: Call<Users>, t: Throwable) {
-                Log.i("TAGS", "GET Failure: ${t.message}")
-                textView.append("GET Failure: ${t.message}")
-            }
-        })
-    }
+    fun getStreams(authorizationToken: String, clientId: String) : Flow<List<Stream>?> = flow {
+        val response = twitchRetrofitInstance.getStreams(authorizationToken, clientId).execute()
+        if(response.isSuccessful){
+            emit(response.body()?.data)
+        }
+    }.flowOn(Dispatchers.Default)
 
 }

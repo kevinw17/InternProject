@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.internproject.databinding.ActivityEntryBinding
-import dagger.hilt.android.AndroidEntryPoint
 
 class EntryActivity : AppCompatActivity() {
 
@@ -18,20 +17,42 @@ class EntryActivity : AppCompatActivity() {
         binding = ActivityEntryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        checkAccessTokenAndLaunchActivity()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loginWithTwitch()
+    }
+
+    private fun checkAccessTokenAndLaunchActivity() {
+        val uri:Uri? = intent.data
+        if(uri != null) {
+            val accessToken = "Bearer " + (uri.fragment?.split("&")?.map { it.split("=") }?.find { it[0] == "access_token" }?.get(1))
+
+            val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE).edit()
+            sharedPreferences.putString(TwitchConstants.TOKEN_ARGUMENT, accessToken)
+            sharedPreferences.apply()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun loginWithTwitch () {
         val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-        val twitchAccessToken = sharedPreferences.getString("twitch_access_token", null)
+        val twitchAccessToken = sharedPreferences.getString(TwitchConstants.TOKEN_ARGUMENT, null)
 
         if (twitchAccessToken != null) {
             val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("twitchAccessToken", twitchAccessToken)
+            intent.putExtra(TwitchConstants.TOKEN_ARGUMENT, twitchAccessToken)
             startActivity(intent)
         } else {
-            val clientId = TwitchConstants.clientId
+            val clientId = TwitchConstants.CLIENT_ID
             val redirectUri = "https://com.example.internproject"
 
             val twitchIntent = Intent(
                 Intent.ACTION_VIEW, Uri.parse(
-                    "https://id.twitch.tv/oauth2/authorize?client_id=$clientId&redirect_uri=$redirectUri&response_type=token&scope=user:read:email")
+                    "https://id.twitch.tv/oauth2/authorize?client_id=$clientId&redirect_uri=$redirectUri&response_type=token&scope=user:read:follows")
             )
 
             binding.btnToMain.setOnClickListener {
@@ -39,29 +60,5 @@ class EntryActivity : AppCompatActivity() {
             }
         }
     }
-    override fun onResume() {
-        super.onResume()
-        val uri:Uri? = intent.data
-        if(uri != null) {
-            val accessToken = uri.fragment?.split("&")?.map { it.split("=") }?.find { it[0] == "access_token" }?.get(1)
-
-            if (accessToken != null) {
-                val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE).edit()
-                sharedPreferences.putString("twitch_access_token", accessToken)
-                sharedPreferences.apply()
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-            } else {
-                Toast.makeText(this, "No Access Token", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-//    override fun onStop() {
-//        super.onStop()
-//        val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE).edit()
-//        sharedPreferences.remove("twitch_access_token")
-//        sharedPreferences.apply()
-//    }
 
 }

@@ -3,6 +3,7 @@ package com.example.internproject
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.internproject.databinding.ActivityMainBinding
@@ -16,30 +17,53 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        if (savedInstanceState == null) {
+            streamsNav()
+            binding.bottomNavigationView.selectedItemId = R.id.navigation_streams
+        }
+
+        bottomNav()
+
+    }
+    private fun bottomNav() {
         binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when(menuItem.itemId){
-                R.id.navigation_tweet -> {
-                    val accessToken = intent.getStringExtra("twitchAccessToken")
-                    val fragmentUser = UserFragment()
-                    val args = Bundle()
-
-                    args.putString("twitchAccessToken", accessToken)
-                    fragmentUser.arguments = args
-
-                    loadFragment(fragmentUser)
+                R.id.navigation_streams -> {
+                    streamsNav()
+                    return@setOnItemSelectedListener true
                 }
-                R.id.navigation_dashboard -> {
-                    Toast.makeText(this, "Dashboard", Toast.LENGTH_SHORT).show()
+                R.id.navigation_followed_streams -> {
+                    followedStreamNav()
+                    return@setOnItemSelectedListener true
                 }
                 R.id.navigation_notifications -> {
                     Toast.makeText(this, "Notifications", Toast.LENGTH_SHORT).show()
+                    return@setOnItemSelectedListener true
                 }
+                else -> false
             }
-            false
         }
-
     }
-    fun loadFragment(fragment: Fragment){
+    private fun streamsNav() {
+        val accessToken = intent.getStringExtra(TwitchConstants.TOKEN_ARGUMENT)
+        val fragmentStreams = StreamsFragment()
+        val args = bundleOf(TwitchConstants.TOKEN_ARGUMENT to accessToken)
+
+        fragmentStreams.arguments = args
+
+        loadFragment(fragmentStreams)
+    }
+    private fun followedStreamNav() {
+        val accessToken = intent.getStringExtra(TwitchConstants.TOKEN_ARGUMENT)
+        val fragmentFollowedStream = FollowedStreamFragment()
+        val args = bundleOf(TwitchConstants.TOKEN_ARGUMENT to accessToken)
+
+        fragmentFollowedStream.arguments = args
+
+        loadFragment(fragmentFollowedStream)
+    }
+
+    private fun loadFragment(fragment: Fragment){
         val fragmentManager = supportFragmentManager
 
         val fragmentTransaction : FragmentTransaction =
