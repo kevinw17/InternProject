@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.internproject.databinding.ItemLayoutBinding
 
 class FollowedStreamsAdapter : ListAdapter<Stream, FollowedStreamsAdapter.FollowedStreamViewHolder>(StreamDiffCallback()) {
@@ -22,6 +23,15 @@ class FollowedStreamsAdapter : ListAdapter<Stream, FollowedStreamsAdapter.Follow
     class FollowedStreamViewHolder(private val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(stream: Stream) {
             binding.textUserName.text = stream.userName
+            binding.textViewerCount.text = "Viewers : ${stream.viewerCount}"
+
+            val imageUrl = stream.thumbnailUrl.replace("{width}", TwitchConstants.IMAGE_WIDTH.toString())
+                .replace("{height}", TwitchConstants.IMAGE_HEIGHT.toString())
+
+            Glide.with(binding.imageView.context)
+                .load(imageUrl)
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .into(binding.imageView)
         }
     }
 

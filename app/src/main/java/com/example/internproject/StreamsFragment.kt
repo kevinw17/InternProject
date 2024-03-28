@@ -1,17 +1,17 @@
 package com.example.internproject
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.internproject.databinding.FragmentStreamsBinding
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class StreamsFragment : Fragment() {
@@ -54,7 +54,7 @@ class StreamsFragment : Fragment() {
     private fun setupRecyclerView() {
         binding.streamsRecyclerView.apply {
             adapter = streamsAdapter
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = GridLayoutManager(context, 2)
         }
     }
 
@@ -63,7 +63,13 @@ class StreamsFragment : Fragment() {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     twitchViewModel.result.collect { streams ->
-                        if (streams != null) {
+                        if (streams.isNullOrEmpty()) {
+                            delay(1000)
+                            binding.textNoStreams.visibility = View.VISIBLE
+                            binding.streamsRecyclerView.visibility = View.GONE
+                        } else {
+                            binding.textNoStreams.visibility = View.GONE
+                            binding.streamsRecyclerView.visibility = View.VISIBLE
                             streamsAdapter.submitList(streams)
                         }
                     }

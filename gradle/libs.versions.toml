@@ -1,4 +1,5 @@
 [versions]
+glide = "4.13.0"
 hilt-android = "2.51"
 plugin-android-app = "8.2.2"
 plugin-kotlin = "1.9.22"
@@ -17,8 +18,8 @@ kotlinx-coroutines-core = "1.7.1"
 kotlinx-coroutines-android = "1.7.1"
 navigation-fragment-ktx = "2.7.7"
 navigation-ui-ktx = "2.7.7"
-okhttp = "4.2.1"
-logging-interceptor = "4.11.0"
+okhttp = "4.12.0"
+logging-interceptor = "4.12.0"
 
 
 [libraries]
@@ -42,6 +43,8 @@ navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fr
 navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation-ui-ktx" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "logging-interceptor" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "plugin-android-app" }
