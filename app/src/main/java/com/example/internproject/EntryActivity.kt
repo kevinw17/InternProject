@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.internproject.databinding.ActivityEntryBinding
 
@@ -17,14 +16,9 @@ class EntryActivity : AppCompatActivity() {
         binding = ActivityEntryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        loginWithTwitch()
         checkAccessTokenAndLaunchActivity()
     }
-
-    override fun onResume() {
-        super.onResume()
-        loginWithTwitch()
-    }
-
     private fun checkAccessTokenAndLaunchActivity() {
         val uri:Uri? = intent.data
         if(uri != null) {
