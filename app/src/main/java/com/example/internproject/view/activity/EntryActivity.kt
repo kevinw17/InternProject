@@ -1,4 +1,4 @@
-package com.example.internproject
+package com.example.internproject.view.activity
 
 import android.content.Context
 import android.content.Intent
@@ -6,7 +6,10 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.internproject.databinding.ActivityEntryBinding
+import com.example.internproject.util.TwitchConstants
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EntryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEntryBinding

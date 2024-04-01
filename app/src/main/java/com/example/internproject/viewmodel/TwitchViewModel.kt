@@ -1,14 +1,18 @@
-package com.example.internproject
+package com.example.internproject.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.internproject.model.Stream
+import com.example.internproject.repository.Repository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TwitchViewModel() : ViewModel() {
+@HiltViewModel
+class TwitchViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
-    private val repository = Repository()
     private val _result = MutableStateFlow<List<Stream>?>(null)
     val result: StateFlow<List<Stream>?> = _result
     fun getFollowedStreams (authorizationToken : String, clientId : String, userId : String) {

@@ -1,4 +1,4 @@
-package com.example.internproject
+package com.example.internproject.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,22 +10,27 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.internproject.databinding.FragmentFollowedStreamsBinding
+import com.example.internproject.adapter.StreamsAdapter
+import com.example.internproject.databinding.FragmentStreamsBinding
+import com.example.internproject.util.TwitchConstants
+import com.example.internproject.viewmodel.TwitchViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class FollowedStreamFragment : Fragment() {
+@AndroidEntryPoint
+class StreamsFragment : Fragment() {
 
-    private lateinit var binding: FragmentFollowedStreamsBinding
+    private lateinit var binding: FragmentStreamsBinding
     private lateinit var twitchViewModel: TwitchViewModel
     private var accessToken: String? = null
-    private  var followedStreamsAdapter = FollowedStreamsAdapter()
+    private val streamsAdapter = StreamsAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentFollowedStreamsBinding.inflate(inflater, container, false)
+        binding = FragmentStreamsBinding.inflate(inflater, container, false)
         twitchViewModel = ViewModelProvider(this)[TwitchViewModel::class.java]
         getAccessTokenArguments()
         return binding.root
@@ -34,15 +39,8 @@ class FollowedStreamFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        observeStreamResult()
         getStreamResult()
-    }
-
-    private fun setupRecyclerView() {
-        binding.streamsRecyclerView.apply {
-            adapter = followedStreamsAdapter
-            binding.streamsRecyclerView.layoutManager = GridLayoutManager(context, 2)
-        }
+        observeStreamResult()
     }
 
     private fun getAccessTokenArguments() {
@@ -51,11 +49,17 @@ class FollowedStreamFragment : Fragment() {
 
     private fun getStreamResult() {
         accessToken?.let { safeToken ->
-            twitchViewModel.getFollowedStreams(
+            twitchViewModel.getStreams(
                 authorizationToken = safeToken,
                 clientId = TwitchConstants.CLIENT_ID,
-                userId = TwitchConstants.DUMMY_USER_ID
             )
+        }
+    }
+
+    private fun setupRecyclerView() {
+        binding.streamsRecyclerView.apply {
+            adapter = streamsAdapter
+            layoutManager = GridLayoutManager(context, 2)
         }
     }
 
@@ -71,7 +75,7 @@ class FollowedStreamFragment : Fragment() {
                         } else {
                             binding.textNoStreams.visibility = View.GONE
                             binding.streamsRecyclerView.visibility = View.VISIBLE
-                            followedStreamsAdapter.submitList(streams)
+                            streamsAdapter.submitList(streams)
                         }
                     }
                 }

@@ -1,4 +1,4 @@
-package com.example.internproject
+package com.example.internproject.model
 
 data class Pagination(
     val cursor : String

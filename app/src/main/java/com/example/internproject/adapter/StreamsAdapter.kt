@@ -1,4 +1,4 @@
-package com.example.internproject
+package com.example.internproject.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,21 +6,24 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.internproject.R
 import com.example.internproject.databinding.ItemLayoutBinding
+import com.example.internproject.model.Stream
+import com.example.internproject.util.TwitchConstants
 
-class FollowedStreamsAdapter : ListAdapter<Stream, FollowedStreamsAdapter.FollowedStreamViewHolder>(StreamDiffCallback()) {
+class StreamsAdapter : ListAdapter<Stream, StreamsAdapter.StreamViewHolder>(StreamDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FollowedStreamViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StreamViewHolder {
         val binding = ItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return FollowedStreamViewHolder(binding)
+        return StreamViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: FollowedStreamViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: StreamViewHolder, position: Int) {
         val stream = getItem(position)
         holder.bind(stream)
     }
 
-    class FollowedStreamViewHolder(private val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+    class StreamViewHolder(private val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(stream: Stream) {
             binding.textUserName.text = stream.userName
             binding.textViewerCount.text = "Viewers : ${stream.viewerCount}"
@@ -32,6 +35,7 @@ class FollowedStreamsAdapter : ListAdapter<Stream, FollowedStreamsAdapter.Follow
                 .load(imageUrl)
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(binding.imageView)
+
         }
     }
 

@@ -1,4 +1,4 @@
-package com.example.internproject
+package com.example.internproject.model
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,4 +1,4 @@
-package com.example.internproject
+package com.example.internproject.util
 
 object TwitchConstants {
     val CLIENT_ID = "buojwn4j7smykbken5koabb6tg9m9m"

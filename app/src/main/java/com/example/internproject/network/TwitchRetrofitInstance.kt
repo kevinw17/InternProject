@@ -1,6 +1,5 @@
-package com.example.internproject
+package com.example.internproject.network
 
-import okhttp3.OkHttp
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

@@ -1,7 +1,7 @@
-package com.example.internproject
+package com.example.internproject.network
 
+import com.example.internproject.model.DataResponse
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
