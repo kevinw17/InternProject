@@ -6,4 +6,5 @@ object TwitchConstants {
     val TOKEN_ARGUMENT = "twitch_access_token"
     val IMAGE_WIDTH = 1280
     val IMAGE_HEIGHT = 960
+    val VIDEO_USER_ID = "191043512"
 }

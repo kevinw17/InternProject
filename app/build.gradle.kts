@@ -74,6 +74,7 @@ dependencies {
 
     implementation (libs.lifecycle.runtime.ktx)
     implementation(libs.glide)
+    implementation(libs.exoplayer)
     annotationProcessor(libs.compiler)
 }
 kapt {

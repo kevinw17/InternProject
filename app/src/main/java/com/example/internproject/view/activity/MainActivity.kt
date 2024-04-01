@@ -1,7 +1,6 @@
 package com.example.internproject.view.activity
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -11,6 +10,7 @@ import com.example.internproject.databinding.ActivityMainBinding
 import com.example.internproject.util.TwitchConstants
 import com.example.internproject.view.fragment.FollowedStreamsFragment
 import com.example.internproject.view.fragment.StreamsFragment
+import com.example.internproject.view.fragment.VideosFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,12 +43,22 @@ class MainActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_notifications -> {
-                    Toast.makeText(this, "Notifications", Toast.LENGTH_SHORT).show()
+                    videosNav()
                     return@setOnItemSelectedListener true
                 }
                 else -> false
             }
         }
+    }
+
+    private fun videosNav() {
+        val accessToken = intent.getStringExtra(TwitchConstants.TOKEN_ARGUMENT)
+        val fragmentVideos = VideosFragment()
+        val args = bundleOf(TwitchConstants.TOKEN_ARGUMENT to accessToken)
+
+        fragmentVideos.arguments = args
+
+        loadFragment(fragmentVideos)
     }
     private fun streamsNav() {
         val accessToken = intent.getStringExtra(TwitchConstants.TOKEN_ARGUMENT)

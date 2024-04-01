@@ -1,6 +1,7 @@
 package com.example.internproject.network
 
 import com.example.internproject.model.DataResponse
+import com.example.internproject.model.VideoResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -19,5 +20,12 @@ interface TwitchService {
         @Header("Client-ID") clientId : String,
         @Query("user_id") userId : String
     ) : Call<DataResponse>
+
+    @GET("/helix/videos")
+    fun getVideos(
+        @Header("Authorization") authorization : String,
+        @Header("Client-ID") clientId : String,
+        @Query("user_id") userId : String
+    ) : Call<VideoResponse>
 
 }
