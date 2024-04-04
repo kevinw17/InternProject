@@ -21,6 +21,11 @@ navigation-ui-ktx = "2.7.7"
 okhttp = "4.12.0"
 logging-interceptor = "4.12.0"
 exoplayer = "2.18.4"
+compose-bom = "2024.03.00"
+activity-compose = "1.8.2"
+compose = "1.6.4"
+lifecycle-viewmodel-compose = "2.7.0"
+coil-compose = "2.5.0"
 
 
 [libraries]
@@ -45,12 +50,26 @@ navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx",
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "logging-interceptor" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
 exoplayer = { group = "com.google.android.exoplayer", name = "exoplayer", version.ref = "exoplayer" }
+exoplayer-hls = { group = "com.google.android.exoplayer", name = "exoplayer-hls", version.ref = "exoplayer" }
+compose-bom = { group = "androidx.compose", name="compose-bom", version.ref = "compose-bom" }
+activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
+ui = { group = "androidx.compose.ui", name = "ui"}
+ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling"}
+ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview"}
+ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics"}
+compose-material = { group = "androidx.compose.material", name = "material", version.ref = "compose" }
+material-icons-core = { group = "androidx.compose.material", name = "material-icons-core", version.ref = "compose" }
+material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "compose" }
+runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "compose" }
+lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle-viewmodel-compose" }
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil-compose" }
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "plugin-android-app" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "plugin-kotlin" }
 daggerHilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt-android" }
 kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "plugin-kotlin" }
+
 

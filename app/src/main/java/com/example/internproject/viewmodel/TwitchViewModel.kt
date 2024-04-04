@@ -40,9 +40,9 @@ class TwitchViewModel @Inject constructor(private val repository: Repository) : 
         }
     }
 
-    fun getVideos (authorizationToken : String, clientId : String, userId : String) {
+    fun getVideos (authorizationToken : String, clientId : String, userId : String, type: String) {
         viewModelScope.launch {
-            repository.getVideos(authorizationToken, clientId, userId).collect { videos ->
+            repository.getVideos(authorizationToken, clientId, userId, type).collect { videos ->
                 if( videos != null) {
                     _videos.value =  videos
                 }

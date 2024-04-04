@@ -31,6 +31,9 @@ class EntryActivity : AppCompatActivity() {
             sharedPreferences.putString(TwitchConstants.TOKEN_ARGUMENT, accessToken)
             sharedPreferences.apply()
             val intent = Intent(this, MainActivity::class.java)
+            intent.apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
             startActivity(intent)
         }
     }
@@ -41,7 +44,10 @@ class EntryActivity : AppCompatActivity() {
 
         if (twitchAccessToken != null) {
             val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra(TwitchConstants.TOKEN_ARGUMENT, twitchAccessToken)
+            intent.apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                putExtra(TwitchConstants.TOKEN_ARGUMENT, twitchAccessToken)
+            }
             startActivity(intent)
         } else {
             val clientId = TwitchConstants.CLIENT_ID

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:name=".dagger.TwitchApplication"
@@ -16,6 +17,9 @@
         android:theme="@style/Theme.InternProject"
         tools:targetApi="31">
         <activity
+            android:name=".view.activity.VideoDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.MainActivity"
             android:exported="false" />
         <activity
@@ -28,12 +32,13 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="com.example.internproject"
-                    android:scheme="https"
-                    />
+                    android:scheme="https" />
             </intent-filter>
         </activity>
     </application>

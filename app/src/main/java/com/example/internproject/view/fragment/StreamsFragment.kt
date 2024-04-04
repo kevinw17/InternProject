@@ -15,7 +15,6 @@ import com.example.internproject.databinding.FragmentStreamsBinding
 import com.example.internproject.util.TwitchConstants
 import com.example.internproject.viewmodel.TwitchViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -68,13 +67,7 @@ class StreamsFragment : Fragment() {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     twitchViewModel.result.collect { streams ->
-                        if (streams.isNullOrEmpty()) {
-                            delay(1000)
-                            binding.textNoStreams.visibility = View.VISIBLE
-                            binding.streamsRecyclerView.visibility = View.GONE
-                        } else {
-                            binding.textNoStreams.visibility = View.GONE
-                            binding.streamsRecyclerView.visibility = View.VISIBLE
+                        if (streams != null) {
                             streamsAdapter.submitList(streams)
                         }
                     }

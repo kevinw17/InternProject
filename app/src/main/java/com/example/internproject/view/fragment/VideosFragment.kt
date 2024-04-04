@@ -59,7 +59,8 @@ class VideosFragment : Fragment() {
             twitchViewModel.getVideos(
                 authorizationToken = safeToken,
                 clientId = TwitchConstants.CLIENT_ID,
-                userId = TwitchConstants.VIDEO_USER_ID
+                userId = TwitchConstants.VIDEO_USER_ID,
+                type = TwitchConstants.VIDEO_TYPE
             )
         }
     }

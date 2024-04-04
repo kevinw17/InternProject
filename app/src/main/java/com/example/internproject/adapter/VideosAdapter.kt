@@ -1,5 +1,6 @@
 package com.example.internproject.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -9,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.internproject.R
 import com.example.internproject.databinding.ItemLayoutBinding
 import com.example.internproject.model.Video
+import com.example.internproject.view.activity.VideoDetailActivity
 
 class VideosAdapter : ListAdapter<Video, VideosAdapter.VideosViewHolder>(VideosDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideosViewHolder {
@@ -33,6 +35,17 @@ class VideosAdapter : ListAdapter<Video, VideosAdapter.VideosViewHolder>(VideosD
                 .load(imageUrl)
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(binding.imageView)
+
+            binding.root.setOnClickListener {
+                val context = it.context
+                val intent = Intent(context, VideoDetailActivity::class.java).apply {
+                    putExtra("VIDEO_URL", video.url)
+                    putExtra("VIDEO_TITLE", video.title)
+                    putExtra("VIDEO_VIEW_COUNT", video.viewCount)
+                    putExtra("VIDEO_TYPE", video.type)
+                }
+                context.startActivity(intent)
+            }
 
         }
     }

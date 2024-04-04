@@ -25,7 +25,8 @@ interface TwitchService {
     fun getVideos(
         @Header("Authorization") authorization : String,
         @Header("Client-ID") clientId : String,
-        @Query("user_id") userId : String
+        @Query("user_id") userId : String,
+        @Query("type") type : String
     ) : Call<VideoResponse>
 
 }

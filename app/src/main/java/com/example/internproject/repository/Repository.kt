@@ -26,8 +26,8 @@ class Repository @Inject constructor(private val apiService : TwitchService) {
         }
     }.flowOn(Dispatchers.Default)
 
-    fun getVideos(authorizationToken : String, clientId : String, userId : String) : Flow<List<Video>?> = flow {
-        val response = apiService.getVideos(authorizationToken, clientId, userId).execute()
+    fun getVideos(authorizationToken : String, clientId : String, userId : String, type : String) : Flow<List<Video>?> = flow {
+        val response = apiService.getVideos(authorizationToken, clientId, userId, type).execute()
         if(response.isSuccessful){
             emit(response.body()?.data)
         }

@@ -37,6 +37,15 @@ android {
     }
     buildFeatures{
         viewBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.8"
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
     }
 }
 
@@ -75,7 +84,27 @@ dependencies {
     implementation (libs.lifecycle.runtime.ktx)
     implementation(libs.glide)
     implementation(libs.exoplayer)
-    annotationProcessor(libs.compiler)
+    implementation(libs.exoplayer.hls)
+
+    implementation(platform(libs.compose.bom))
+    androidTestImplementation(platform(libs.compose.bom))
+
+    implementation(libs.activity.compose)
+    implementation(libs.ui)
+    implementation(libs.ui.graphics)
+    implementation(libs.compose.material)
+    implementation(libs.material.icons.core)
+    implementation(libs.material.icons.extended)
+    implementation(libs.runtime.livedata)
+    implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.coil.compose)
+
+    // Android Studio Preview support
+    implementation (libs.ui.tooling.preview)
+    debugImplementation (libs.ui.tooling)
+
+
+//    annotationProcessor(libs.glide.compiler)
 }
 kapt {
     correctErrorTypes = true

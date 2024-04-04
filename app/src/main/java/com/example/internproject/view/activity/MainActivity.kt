@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.internproject.R
 import com.example.internproject.databinding.ActivityMainBinding
 import com.example.internproject.util.TwitchConstants
+import com.example.internproject.view.fragment.ComposeFragment
 import com.example.internproject.view.fragment.FollowedStreamsFragment
 import com.example.internproject.view.fragment.StreamsFragment
 import com.example.internproject.view.fragment.VideosFragment
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         bottomNav()
 
     }
+
     private fun bottomNav() {
         binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when(menuItem.itemId){
@@ -38,17 +40,31 @@ class MainActivity : AppCompatActivity() {
                     streamsNav()
                     return@setOnItemSelectedListener true
                 }
+                R.id.navigation_compose -> {
+                    composeNav()
+                    return@setOnItemSelectedListener true
+                }
                 R.id.navigation_followed_streams -> {
                     followedStreamNav()
                     return@setOnItemSelectedListener true
                 }
-                R.id.navigation_notifications -> {
+                R.id.navigation_videos -> {
                     videosNav()
                     return@setOnItemSelectedListener true
                 }
                 else -> false
             }
         }
+    }
+
+    private fun composeNav() {
+        val accessToken = intent.getStringExtra(TwitchConstants.TOKEN_ARGUMENT)
+        val fragmentCompose = ComposeFragment()
+        val args = bundleOf(TwitchConstants.TOKEN_ARGUMENT to accessToken)
+
+        fragmentCompose.arguments = args
+
+        loadFragment(fragmentCompose)
     }
 
     private fun videosNav() {
