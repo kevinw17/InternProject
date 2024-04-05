@@ -38,10 +38,12 @@ class VideoDetailActivity : AppCompatActivity() {
         val videoUrl = intent.getStringExtra("VIDEO_URL")
         val videoTitle = intent.getStringExtra("VIDEO_TITLE")
         val viewCount = intent.getIntExtra("VIDEO_VIEW_COUNT", 0).toString()
+        val streamer = intent.getStringExtra("VIDEO_STREAMER")
         if (videoUrl != null) {
             binding.webView.loadUrl(videoUrl)
         }
 
+        binding.userName.text = streamer
         binding.videoTitle.text = videoTitle
         binding.viewCount.text = "Total Views : $viewCount"
 

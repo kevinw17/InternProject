@@ -43,6 +43,7 @@ class VideosAdapter : ListAdapter<Video, VideosAdapter.VideosViewHolder>(VideosD
                     putExtra("VIDEO_TITLE", video.title)
                     putExtra("VIDEO_VIEW_COUNT", video.viewCount)
                     putExtra("VIDEO_TYPE", video.type)
+                    putExtra("VIDEO_STREAMER", video.userName)
                 }
                 context.startActivity(intent)
             }

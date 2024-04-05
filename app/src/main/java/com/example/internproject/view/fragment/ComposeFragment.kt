@@ -9,6 +9,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -33,6 +34,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.unit.dp
@@ -70,7 +72,7 @@ class ComposeFragment : Fragment() {
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
                 contentPadding = PaddingValues(4.dp),
-                modifier = Modifier.padding(4.dp)
+                modifier = Modifier.padding(4.dp).background(Color.Gray)
             ) {
                 items(it.size) {index ->
                     val stream = it[index]
@@ -103,7 +105,8 @@ class ComposeFragment : Fragment() {
                     modifier = Modifier
                         .padding(8.dp)
                         .fillMaxWidth(),
-                    elevation = 2.dp
+                    elevation = 2.dp,
+                    backgroundColor = Color.LightGray
                 ) {
                     Column(modifier = Modifier.padding(8.dp)) {
                         val imageUrl = stream.thumbnailUrl.replace("{width}", TwitchConstants.IMAGE_WIDTH.toString())
