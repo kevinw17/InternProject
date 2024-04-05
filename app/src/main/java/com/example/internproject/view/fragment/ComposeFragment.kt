@@ -4,7 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,11 +18,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
@@ -41,13 +55,13 @@ class ComposeFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                StreamsList(twitchViewModel = twitchViewModel)
+                StreamsList()
             }
         }
     }
 
     @Composable
-    private fun StreamsList(twitchViewModel: TwitchViewModel) {
+    private fun StreamsList() {
         getAccessToken()
 
         val streams by twitchViewModel.result.collectAsState()
@@ -70,25 +84,60 @@ class ComposeFragment : Fragment() {
 
     @Composable
     private fun StreamItemCard(stream: Stream) {
+
+        val expanded = remember {
+            mutableStateOf(false)
+        }
+
+        val isVisible = remember { mutableStateOf(false) }
+        LaunchedEffect(key1 = true) {
+            isVisible.value = true
+        }
+
         MaterialTheme {
-            Card(
-                modifier = Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth(),
-                elevation = 2.dp
+            AnimatedVisibility(
+                visible = isVisible.value,
+                enter = fadeIn(animationSpec = tween(1000))
             ) {
-                Column(modifier = Modifier.padding(8.dp)) {
-                    val imageUrl = stream.thumbnailUrl.replace("{width}", TwitchConstants.IMAGE_WIDTH.toString())
-                        .replace("{height}", TwitchConstants.IMAGE_HEIGHT.toString())
-                    Image(
-                        painter = rememberAsyncImagePainter(imageUrl),
-                        contentDescription = "Thumbnail",
-                        modifier = Modifier
-                            .height(150.dp)
-                            .fillMaxWidth()
-                    )
-                    Text(text = stream.userName, modifier = Modifier.padding(2.dp), style = MaterialTheme.typography.h5)
-                    Text(text = "Viewers: ${stream.viewerCount}", modifier = Modifier.padding(2.dp), style = MaterialTheme.typography.body1)
+                Card(
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .fillMaxWidth(),
+                    elevation = 2.dp
+                ) {
+                    Column(modifier = Modifier.padding(8.dp)) {
+                        val imageUrl = stream.thumbnailUrl.replace("{width}", TwitchConstants.IMAGE_WIDTH.toString())
+                            .replace("{height}", TwitchConstants.IMAGE_HEIGHT.toString())
+                        Image(
+                            painter = rememberAsyncImagePainter(imageUrl),
+                            contentDescription = "Thumbnail",
+                            modifier = Modifier
+                                .height(150.dp)
+                                .fillMaxWidth()
+                        )
+                        Text(text = stream.userName, modifier = Modifier.padding(2.dp), style = MaterialTheme.typography.h5)
+
+                        AnimatedVisibility(
+                            visible = expanded.value,
+                            enter = fadeIn(animationSpec = tween(1000)),
+                            exit = fadeOut(animationSpec = tween(1000))
+
+                        ) {
+                            Column {
+                                Text(text = stream.title, modifier = Modifier.padding(2.dp), style = MaterialTheme.typography.body1)
+                                Text(text = "Viewers: ${stream.viewerCount}", modifier = Modifier.padding(2.dp), style = MaterialTheme.typography.body1)
+                            }
+                        }
+
+                        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
+                            IconButton(onClick = { expanded.value = !expanded.value }) {
+                                Icon(
+                                    imageVector = if (expanded.value) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
+                                    contentDescription = "Expand/Collapse"
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }

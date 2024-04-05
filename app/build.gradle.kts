@@ -98,6 +98,7 @@ dependencies {
     implementation(libs.runtime.livedata)
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.coil.compose)
+    implementation(libs.animation)
 
     // Android Studio Preview support
     implementation (libs.ui.tooling.preview)
