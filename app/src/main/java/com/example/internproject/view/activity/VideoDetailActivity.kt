@@ -11,6 +11,10 @@ import dagger.hilt.android.AndroidEntryPoint
 class VideoDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityVideoDetailBinding
+    private val videoUrl by lazy { intent.getStringExtra("VIDEO_URL") }
+    private val videoTitle by lazy { intent.getStringExtra("VIDEO_TITLE") }
+    private val viewCount by lazy { intent.getIntExtra("VIDEO_VIEW_COUNT", 0).toString() }
+    private val streamer by lazy { intent.getStringExtra("VIDEO_STREAMER") }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityVideoDetailBinding.inflate(layoutInflater)
@@ -33,12 +37,8 @@ class VideoDetailActivity : AppCompatActivity() {
     }
 
     private fun loadTwitchVideo () {
-        val videoUrl = intent.getStringExtra("VIDEO_URL")
-        val videoTitle = intent.getStringExtra("VIDEO_TITLE")
-        val viewCount = intent.getIntExtra("VIDEO_VIEW_COUNT", 0).toString()
-        val streamer = intent.getStringExtra("VIDEO_STREAMER")
         if (videoUrl != null) {
-            binding.webView.loadUrl(videoUrl)
+            binding.webView.loadUrl(videoUrl!!)
         }
 
         binding.userName.text = streamer
