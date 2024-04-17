@@ -19,37 +19,42 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var twitchViewModel: TwitchViewModel
-    private val streamsFragment by lazy { StreamsFragment.newInstance() }
-    private val composeFragment by lazy { ComposeFragment.newInstance() }
-    private val followedStreamsFragment by lazy { FollowedStreamsFragment.newInstance() }
-    private val videosFragment by lazy { VideosFragment.newInstance() }
+    private lateinit var streamsFragment: StreamsFragment
+    private lateinit var composeFragment: ComposeFragment
+    private lateinit var followedStreamsFragment: FollowedStreamsFragment
+    private lateinit var videosFragment: VideosFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         twitchViewModel = ViewModelProvider(this)[TwitchViewModel::class.java]
         setContentView(binding.root)
-        switchFragment(streamsFragment)
+        binding.tbMainActivity.title = "Streams"
+        gotoStreamFragment()
         bottomNav()
     }
 
     private fun bottomNav() {
-        binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
+        binding.bnMainActivity.setOnItemSelectedListener { menuItem ->
             when(menuItem.itemId){
                 R.id.navigation_streams -> {
-                    switchFragment(streamsFragment)
+                    binding.tbMainActivity.title = "Streams"
+                    gotoStreamFragment()
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_compose -> {
-                    switchFragment(composeFragment)
+                    binding.tbMainActivity.title = "Compose"
+                    gotoComposeFragment()
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_followed_streams -> {
-                    switchFragment(followedStreamsFragment)
+                    binding.tbMainActivity.title = "Followed Streams"
+                    gotoFollowedFragment()
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_videos -> {
-                    switchFragment(videosFragment)
+                    binding.tbMainActivity.title = "Videos"
+                    gotoVideoFragment()
                     return@setOnItemSelectedListener true
                 }
                 else -> false
@@ -57,22 +62,56 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun gotoComposeFragment() {
+    private fun fragmentManagerContainsCurrentFragment(fragment: Fragment): Boolean =
+        supportFragmentManager.fragments.contains(fragment)
 
+    private fun gotoStreamFragment() {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        if (::streamsFragment.isInitialized.not() || fragmentManagerContainsCurrentFragment(streamsFragment).not()) {
+            streamsFragment = StreamsFragment.newInstance()
+            fragmentTransaction.add(R.id.fl_fragment_container, streamsFragment)
+        }
+        setActiveFragment(streamsFragment, fragmentTransaction)
     }
 
-    private fun gotoStreamsFragment() {
-
+    private fun gotoComposeFragment() {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        if (::composeFragment.isInitialized.not() || fragmentManagerContainsCurrentFragment(composeFragment).not()) {
+            composeFragment = ComposeFragment.newInstance()
+            fragmentTransaction.add(R.id.fl_fragment_container, composeFragment)
+        }
+        setActiveFragment(composeFragment, fragmentTransaction)
     }
 
     private fun gotoFollowedFragment() {
-
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        if (::followedStreamsFragment.isInitialized.not() || fragmentManagerContainsCurrentFragment(followedStreamsFragment).not()) {
+            followedStreamsFragment = FollowedStreamsFragment.newInstance()
+            fragmentTransaction.add(R.id.fl_fragment_container, followedStreamsFragment)
+        }
+        setActiveFragment(followedStreamsFragment, fragmentTransaction)
     }
 
-    private fun switchFragment(fragment: Fragment){
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction : FragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frameLayout, fragment)
+    private fun gotoVideoFragment() {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        if (::videosFragment.isInitialized.not() || fragmentManagerContainsCurrentFragment(videosFragment).not()) {
+            videosFragment = VideosFragment.newInstance()
+            fragmentTransaction.add(R.id.fl_fragment_container, videosFragment)
+        }
+        setActiveFragment(videosFragment, fragmentTransaction)
+    }
+
+    private fun setActiveFragment(
+        currentActiveFragment: Fragment,
+        fragmentTransaction: FragmentTransaction
+    ) {
+        supportFragmentManager.fragments.forEach { fragment ->
+            if (fragment == currentActiveFragment) {
+                fragmentTransaction.show(currentActiveFragment)
+            } else {
+                fragmentTransaction.hide(fragment)
+            }
+        }
         fragmentTransaction.commit()
     }
 }
