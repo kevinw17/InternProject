@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.internproject.adapter.FollowedStreamsAdapter
 import com.example.internproject.databinding.FragmentFollowedStreamsBinding
 import com.example.internproject.util.TwitchConstants
+import com.example.internproject.util.TwitchSharedPreferences
 import com.example.internproject.viewmodel.TwitchViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -29,7 +29,7 @@ class FollowedStreamsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFollowedStreamsBinding.inflate(inflater, container, false)
         twitchViewModel = ViewModelProvider(this)[TwitchViewModel::class.java]
         getAccessTokenArguments()
@@ -39,8 +39,8 @@ class FollowedStreamsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        observeStreamResult()
         getStreamResult()
+        observeStreamResult()
     }
 
     private fun setupRecyclerView() {
@@ -51,7 +51,7 @@ class FollowedStreamsFragment : Fragment() {
     }
 
     private fun getAccessTokenArguments() {
-        accessToken = arguments?.getString(TwitchConstants.TOKEN_ARGUMENT)
+        accessToken = context?.let { TwitchSharedPreferences.getAccessToken(it) }
     }
 
     private fun getStreamResult() {
@@ -69,11 +69,11 @@ class FollowedStreamsFragment : Fragment() {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     twitchViewModel.result.collect { streams ->
-                        if (streams.isNullOrEmpty()) {
-                            delay(1000)
+                        if(streams.isNullOrEmpty()) {
                             binding.textNoStreams.visibility = View.VISIBLE
                             binding.streamsRecyclerView.visibility = View.GONE
-                        } else {
+                        }
+                        else {
                             binding.textNoStreams.visibility = View.GONE
                             binding.streamsRecyclerView.visibility = View.VISIBLE
                             followedStreamsAdapter.submitList(streams)

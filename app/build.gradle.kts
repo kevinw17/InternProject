@@ -17,6 +17,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "CLIENT_ID","\"buojwn4j7smykbken5koabb6tg9m9m\"")
     }
 
     buildTypes {
@@ -38,6 +40,7 @@ android {
     buildFeatures{
         viewBinding = true
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.8"
@@ -83,8 +86,6 @@ dependencies {
 
     implementation (libs.lifecycle.runtime.ktx)
     implementation(libs.glide)
-    implementation(libs.exoplayer)
-    implementation(libs.exoplayer.hls)
 
     implementation(platform(libs.compose.bom))
     androidTestImplementation(platform(libs.compose.bom))

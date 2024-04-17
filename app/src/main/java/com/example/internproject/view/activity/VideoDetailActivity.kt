@@ -5,14 +5,12 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.example.internproject.databinding.ActivityVideoDetailBinding
-import com.google.android.exoplayer2.ExoPlayer
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class VideoDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityVideoDetailBinding
-    private var player : ExoPlayer? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityVideoDetailBinding.inflate(layoutInflater)

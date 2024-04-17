@@ -1,12 +1,13 @@
 package com.example.internproject.view.activity
 
-import android.content.Context
+
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.internproject.databinding.ActivityEntryBinding
 import com.example.internproject.util.TwitchConstants
+import com.example.internproject.util.TwitchSharedPreferences
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,37 +26,21 @@ class EntryActivity : AppCompatActivity() {
     private fun checkAccessTokenAndLaunchActivity() {
         val uri:Uri? = intent.data
         if(uri != null) {
-            val accessToken = "Bearer " + (uri.fragment?.split("&")?.map { it.split("=") }?.find { it[0] == "access_token" }?.get(1))
+            val accessToken = "Bearer ${TwitchConstants.extractAccessToken(uri)}"
 
-            val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE).edit()
-            sharedPreferences.putString(TwitchConstants.TOKEN_ARGUMENT, accessToken)
-            sharedPreferences.apply()
-            val intent = Intent(this, MainActivity::class.java)
-            intent.apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            }
-            startActivity(intent)
+            TwitchSharedPreferences.setAccessToken(this, accessToken)
+            launchMainActivity()
         }
     }
 
     private fun loginWithTwitch () {
-        val sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-        val twitchAccessToken = sharedPreferences.getString(TwitchConstants.TOKEN_ARGUMENT, null)
+        val twitchAccessToken = TwitchSharedPreferences.getAccessToken(this)
 
         if (twitchAccessToken != null) {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                putExtra(TwitchConstants.TOKEN_ARGUMENT, twitchAccessToken)
-            }
-            startActivity(intent)
+            launchMainActivity()
         } else {
-            val clientId = TwitchConstants.CLIENT_ID
-            val redirectUri = "https://com.example.internproject"
-
             val twitchIntent = Intent(
-                Intent.ACTION_VIEW, Uri.parse(
-                    "https://id.twitch.tv/oauth2/authorize?client_id=$clientId&redirect_uri=$redirectUri&response_type=token&scope=user:read:follows")
+                Intent.ACTION_VIEW, Uri.parse(TwitchConstants.TWITCH_AUTH_URL)
             )
 
             binding.btnToMain.setOnClickListener {
@@ -64,4 +49,11 @@ class EntryActivity : AppCompatActivity() {
         }
     }
 
+    private fun launchMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        startActivity(intent)
+    }
 }

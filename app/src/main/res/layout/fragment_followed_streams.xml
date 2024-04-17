@@ -11,13 +11,13 @@
         android:id="@+id/streamsRecyclerView"/>
 
     <TextView
-        android:id="@+id/textNoStreams"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/textNoStreams"
         android:text="No Live Streams Available"
-        android:textAlignment="center"
-        android:textSize="24sp"
+        android:gravity="center"
         android:layout_gravity="center"
+        android:textSize="20sp"
         android:visibility="gone"/>
 
 </FrameLayout>

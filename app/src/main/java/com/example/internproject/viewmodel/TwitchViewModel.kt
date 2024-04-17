@@ -6,25 +6,25 @@ import com.example.internproject.model.Stream
 import com.example.internproject.model.Video
 import com.example.internproject.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class TwitchViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
-    private val _result = MutableStateFlow<List<Stream>?>(null)
-    private val _videos = MutableStateFlow<List<Video>?>(null)
-    val result: StateFlow<List<Stream>?> = _result
-    val videos : StateFlow<List<Video>?> = _videos
+    private val _result = MutableSharedFlow<List<Stream>?>()
+    private val _videos = MutableSharedFlow<List<Video>?>()
+    val result = _result.asSharedFlow()
+    val videos = _videos.asSharedFlow()
 
 
     fun getFollowedStreams (authorizationToken : String, clientId : String, userId : String) {
         viewModelScope.launch {
             repository.getFollowedStreams(authorizationToken, clientId, userId).collect { streams ->
                 if( streams != null) {
-                    _result.value =  streams
+                    _result.emit(streams)
                 }
             }
         }
@@ -34,7 +34,7 @@ class TwitchViewModel @Inject constructor(private val repository: Repository) : 
         viewModelScope.launch {
             repository.getStreams(authorizationToken, clientId).collect { streams ->
                 if(streams != null) {
-                    _result.value =  streams
+                    _result.emit(streams)
                 }
             }
         }
@@ -44,7 +44,7 @@ class TwitchViewModel @Inject constructor(private val repository: Repository) : 
         viewModelScope.launch {
             repository.getVideos(authorizationToken, clientId, userId, type).collect { videos ->
                 if( videos != null) {
-                    _videos.value =  videos
+                    _videos.emit(videos)
                 }
             }
         }

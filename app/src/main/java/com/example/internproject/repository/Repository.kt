@@ -11,7 +11,6 @@ import javax.inject.Inject
 
 class Repository @Inject constructor(private val apiService : TwitchService) {
 
-//    private val twitchRetrofitInstance = TwitchRetrofitInstance.apiService()
     fun getFollowedStreams(authorizationToken : String, clientId : String, userId : String) : Flow<List<Stream>?> = flow {
         val response = apiService.getFollowedStreams(authorizationToken, clientId, userId).execute()
         if(response.isSuccessful){
