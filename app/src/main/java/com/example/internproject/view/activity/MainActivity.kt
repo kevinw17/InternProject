@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bottomNav() {
-        binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
+        binding.bnMainActivity.setOnItemSelectedListener { menuItem ->
             when(menuItem.itemId){
                 R.id.navigation_streams -> {
                     gotoStreamFragment()
