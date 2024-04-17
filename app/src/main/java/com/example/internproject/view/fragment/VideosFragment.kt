@@ -26,6 +26,14 @@ class VideosFragment : Fragment() {
     private var accessToken: String? = null
     private var videosAdapter = VideosAdapter()
 
+    companion object {
+
+        const val TAG = "com.example.internproject.view.fragment.VideosFragment"
+        fun newInstance(): VideosFragment {
+            return VideosFragment()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

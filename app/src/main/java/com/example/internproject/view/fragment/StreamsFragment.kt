@@ -26,6 +26,14 @@ class StreamsFragment : Fragment() {
     private var accessToken: String? = null
     private val streamsAdapter = StreamsAdapter()
 
+    companion object {
+
+        const val TAG = "com.example.internproject.view.fragment.StreamsFragment"
+        fun newInstance(): StreamsFragment {
+            return StreamsFragment()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -26,6 +26,14 @@ class FollowedStreamsFragment : Fragment() {
     private var accessToken: String? = null
     private  var followedStreamsAdapter = FollowedStreamsAdapter()
 
+    companion object {
+
+        const val TAG = "com.example.internproject.view.fragment.FollowedStreamsFragment"
+        fun newInstance(): FollowedStreamsFragment {
+            return FollowedStreamsFragment()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

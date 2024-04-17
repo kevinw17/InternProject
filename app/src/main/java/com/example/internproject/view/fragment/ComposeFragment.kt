@@ -17,6 +17,14 @@ import dagger.hilt.android.AndroidEntryPoint
 class ComposeFragment : Fragment() {
 
     private val twitchViewModel: TwitchViewModel by activityViewModels<TwitchViewModel>()
+
+    companion object {
+
+        const val TAG = "com.example.internproject.view.fragment.ComposeFragment"
+        fun newInstance(): ComposeFragment {
+            return ComposeFragment()
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

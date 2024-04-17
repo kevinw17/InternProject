@@ -19,17 +19,17 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var twitchViewModel: TwitchViewModel
-    private val streamsFragment by lazy { StreamsFragment() }
-    private val composeFragment by lazy { ComposeFragment() }
-    private val followedStreamsFragment by lazy { FollowedStreamsFragment() }
-    private val videosFragment by lazy { VideosFragment() }
+    private val streamsFragment by lazy { StreamsFragment.newInstance() }
+    private val composeFragment by lazy { ComposeFragment.newInstance() }
+    private val followedStreamsFragment by lazy { FollowedStreamsFragment.newInstance() }
+    private val videosFragment by lazy { VideosFragment.newInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         twitchViewModel = ViewModelProvider(this)[TwitchViewModel::class.java]
         setContentView(binding.root)
-        loadFragment(streamsFragment)
+        switchFragment(streamsFragment)
         bottomNav()
     }
 
@@ -37,19 +37,19 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when(menuItem.itemId){
                 R.id.navigation_streams -> {
-                    loadFragment(streamsFragment)
+                    switchFragment(streamsFragment)
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_compose -> {
-                    loadFragment(composeFragment)
+                    switchFragment(composeFragment)
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_followed_streams -> {
-                    loadFragment(followedStreamsFragment)
+                    switchFragment(followedStreamsFragment)
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_videos -> {
-                    loadFragment(videosFragment)
+                    switchFragment(videosFragment)
                     return@setOnItemSelectedListener true
                 }
                 else -> false
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadFragment(fragment: Fragment){
+    private fun switchFragment(fragment: Fragment){
         val fragmentManager = supportFragmentManager
         val fragmentTransaction : FragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frameLayout, fragment)
