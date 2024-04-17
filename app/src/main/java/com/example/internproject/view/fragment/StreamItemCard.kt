@@ -25,7 +25,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
@@ -54,7 +53,6 @@ fun StreamItemCard(stream: Stream) {
                     .padding(8.dp)
                     .fillMaxWidth(),
                 elevation = 2.dp,
-                backgroundColor = Color(0xFFA7D6CE)
             ) {
                 Column(modifier = Modifier.padding(8.dp)) {
                     ThumbnailImage(stream = stream)
@@ -85,7 +83,7 @@ fun ThumbnailImage(stream: Stream) {
 @Composable
 fun StreamUserName(stream: Stream, modifier: Modifier) {
     
-    Text(text = stream.userName, modifier = modifier.padding(2.dp), style = MaterialTheme.typography.h5)
+    Text(text = stream.userName, modifier = modifier.padding(2.dp), style = MaterialTheme.typography.body1)
     
 }
 
@@ -107,14 +105,14 @@ fun ExpandStreamInfo(stream: Stream, expanded : MutableState<Boolean>) {
 @Composable
 fun StreamTitle(stream: Stream) {
     
-    Text(text = stream.title, modifier = Modifier.padding(2.dp), style = MaterialTheme.typography.body1)
+    Text(text = stream.title, modifier = Modifier.padding(2.dp), style = MaterialTheme.typography.body2)
     
 }
 
 @Composable
 fun StreamViewerCount(stream: Stream) {
     
-    Text(text = "Viewers: ${stream.viewerCount}", modifier = Modifier.padding(2.dp), style = MaterialTheme.typography.body1)
+    Text(text = "Viewers: ${stream.viewerCount}", modifier = Modifier.padding(2.dp), style = MaterialTheme.typography.body2)
     
 }
 
