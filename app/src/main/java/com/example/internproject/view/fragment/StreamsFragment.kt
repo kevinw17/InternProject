@@ -67,7 +67,7 @@ class StreamsFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    twitchViewModel.result.collect { streams ->
+                    twitchViewModel.streams.collect { streams ->
                         if (streams != null) {
                             streamsAdapter.submitList(streams)
                         }

@@ -16,7 +16,7 @@ import com.example.internproject.viewmodel.TwitchViewModel
 @Composable
 fun StreamsList(twitchViewModel : TwitchViewModel) {
 
-    val streams by twitchViewModel.result.collectAsState(initial = null)
+    val streams by twitchViewModel.streams.collectAsState()
 
     streams?.let {
         LazyVerticalGrid(

@@ -68,7 +68,7 @@ class FollowedStreamsFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    twitchViewModel.result.collect { streams ->
+                    twitchViewModel.followedStreams.collect { streams ->
                         if(streams.isNullOrEmpty()) {
                             binding.textNoStreams.visibility = View.VISIBLE
                             binding.streamsRecyclerView.visibility = View.GONE
