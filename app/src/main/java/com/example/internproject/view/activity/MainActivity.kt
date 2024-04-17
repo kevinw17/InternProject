@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         twitchViewModel = ViewModelProvider(this)[TwitchViewModel::class.java]
         setContentView(binding.root)
-        binding.toolbar.title = "Streams"
         switchFragment(streamsFragment)
         bottomNav()
     }
@@ -38,22 +37,18 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when(menuItem.itemId){
                 R.id.navigation_streams -> {
-                    binding.toolbar.title = "Streams"
                     switchFragment(streamsFragment)
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_compose -> {
-                    binding.toolbar.title = "Compose"
                     switchFragment(composeFragment)
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_followed_streams -> {
-                    binding.toolbar.title = "Followed Streams"
                     switchFragment(followedStreamsFragment)
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_videos -> {
-                    binding.toolbar.title = "Videos"
                     switchFragment(videosFragment)
                     return@setOnItemSelectedListener true
                 }
