@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
@@ -52,9 +51,9 @@ class FollowedStreamsFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        binding.streamsRecyclerView.apply {
+        binding.rvFollowedStreams.apply {
             adapter = followedStreamsAdapter
-            binding.streamsRecyclerView.layoutManager = GridLayoutManager(context, 2)
+            binding.rvFollowedStreams.layoutManager = GridLayoutManager(context, 2)
         }
     }
 
@@ -78,12 +77,12 @@ class FollowedStreamsFragment : Fragment() {
                 launch {
                     twitchViewModel.followedStreams.collect { streams ->
                         if(streams.isNullOrEmpty()) {
-                            binding.textNoStreams.visibility = View.VISIBLE
-                            binding.streamsRecyclerView.visibility = View.GONE
+                            binding.tvNoStreamAvailable.visibility = View.VISIBLE
+                            binding.rvFollowedStreams.visibility = View.GONE
                         }
                         else {
-                            binding.textNoStreams.visibility = View.GONE
-                            binding.streamsRecyclerView.visibility = View.VISIBLE
+                            binding.tvNoStreamAvailable.visibility = View.GONE
+                            binding.rvFollowedStreams.visibility = View.VISIBLE
                             followedStreamsAdapter.submitList(streams)
                         }
                     }

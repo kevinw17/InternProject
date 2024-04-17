@@ -64,7 +64,7 @@ class StreamsFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        binding.streamsRecyclerView.apply {
+        binding.rvStreams.apply {
             adapter = streamsAdapter
             layoutManager = GridLayoutManager(context, 2)
         }

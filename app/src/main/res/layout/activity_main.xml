@@ -12,6 +12,7 @@
         android:id="@+id/tb_main_activity"
         app:title="Toolbar"
         app:navigationIcon="@drawable/twitch_app_logo"
+        android:background="@color/light_grayish_violet"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/fl_fragment_container"/>
 

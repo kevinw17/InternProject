@@ -25,8 +25,8 @@ class VideoDetailActivity : AppCompatActivity() {
     }
 
     private fun configureWebView () {
-        binding.webView.settings.javaScriptEnabled = true
-        binding.webView.webViewClient = object : WebViewClient() {
+        binding.wvTwitchVideo.settings.javaScriptEnabled = true
+        binding.wvTwitchVideo.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
                 if (url != null) {
                     view?.loadUrl(url)
@@ -38,12 +38,12 @@ class VideoDetailActivity : AppCompatActivity() {
 
     private fun loadTwitchVideo () {
         if (videoUrl != null) {
-            binding.webView.loadUrl(videoUrl!!)
+            binding.wvTwitchVideo.loadUrl(videoUrl!!)
         }
 
-        binding.userName.text = streamer
-        binding.videoTitle.text = videoTitle
-        binding.viewCount.text = "Total Views : $viewCount"
+        binding.tvUserName.text = streamer
+        binding.tvVideoTitle.text = videoTitle
+        binding.tvViewCount.text = "Total Views : $viewCount"
 
     }
 

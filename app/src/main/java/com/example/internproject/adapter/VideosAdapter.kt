@@ -25,16 +25,16 @@ class VideosAdapter : ListAdapter<Video, VideosAdapter.VideosViewHolder>(VideosD
 
     class VideosViewHolder(private val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(video: Video) {
-            binding.textView1.text = video.title
-            binding.textViewerCount.text = "Total Views : ${video.viewCount}"
+            binding.tvCardUserName.text = video.title
+            binding.tvCardViewerCount.text = "Total Views : ${video.viewCount}"
 
             val imageUrl = video.thumbnailUrl.replace("%{width}", "320")
                 .replace("%{height}", "180")
 
-            Glide.with(binding.imageView.context)
+            Glide.with(binding.ivCardThumbnailImage.context)
                 .load(imageUrl)
                 .placeholder(R.drawable.ic_launcher_foreground)
-                .into(binding.imageView)
+                .into(binding.ivCardThumbnailImage)
 
             binding.root.setOnClickListener {
                 val context = it.context

@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
@@ -57,7 +56,7 @@ class VideosFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        binding.streamsRecyclerView.apply {
+        binding.rvVideos.apply {
             adapter = videosAdapter
             layoutManager = GridLayoutManager(context, 2)
         }

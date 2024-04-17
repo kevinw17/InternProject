@@ -25,16 +25,16 @@ class StreamsAdapter : ListAdapter<Stream, StreamsAdapter.StreamViewHolder>(Stre
 
     class StreamViewHolder(private val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(stream: Stream) {
-            binding.textView1.text = stream.userName
-            binding.textViewerCount.text = "Viewers : ${stream.viewerCount}"
+            binding.tvCardUserName.text = stream.userName
+            binding.tvCardViewerCount.text = "Viewers : ${stream.viewerCount}"
 
             val imageUrl = stream.thumbnailUrl.replace("{width}", TwitchConstants.IMAGE_WIDTH.toString())
                 .replace("{height}", TwitchConstants.IMAGE_HEIGHT.toString())
 
-            Glide.with(binding.imageView.context)
+            Glide.with(binding.ivCardThumbnailImage.context)
                 .load(imageUrl)
                 .placeholder(R.drawable.ic_launcher_foreground)
-                .into(binding.imageView)
+                .into(binding.ivCardThumbnailImage)
 
         }
     }

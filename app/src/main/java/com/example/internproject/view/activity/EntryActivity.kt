@@ -43,7 +43,7 @@ class EntryActivity : AppCompatActivity() {
                 Intent.ACTION_VIEW, Uri.parse(TwitchConstants.TWITCH_AUTH_URL)
             )
 
-            binding.btnToMain.setOnClickListener {
+            binding.btEntryToMain.setOnClickListener {
                 startActivity(twitchIntent)
             }
         }
