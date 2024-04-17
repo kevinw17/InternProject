@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -22,7 +23,7 @@ import kotlinx.coroutines.launch
 class VideosFragment : Fragment() {
 
     private lateinit var binding : FragmentVideosBinding
-    private lateinit var twitchViewModel : TwitchViewModel
+    private val twitchViewModel : TwitchViewModel by activityViewModels<TwitchViewModel>()
     private var accessToken: String? = null
     private var videosAdapter = VideosAdapter()
 
@@ -40,7 +41,6 @@ class VideosFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentVideosBinding.inflate(inflater, container, false)
-        twitchViewModel = ViewModelProvider(this)[TwitchViewModel::class.java]
         getAccessTokenArguments()
         return binding.root
     }

@@ -57,6 +57,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun gotoComposeFragment() {
+
+    }
+
+    private fun gotoStreamsFragment() {
+
+    }
+
+    private fun gotoFollowedFragment() {
+
+    }
+
     private fun switchFragment(fragment: Fragment){
         val fragmentManager = supportFragmentManager
         val fragmentTransaction : FragmentTransaction = fragmentManager.beginTransaction()
