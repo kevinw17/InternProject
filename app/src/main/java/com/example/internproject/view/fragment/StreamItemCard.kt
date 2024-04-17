@@ -3,7 +3,6 @@ package com.example.internproject.view.fragment
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -92,8 +91,7 @@ fun ExpandStreamInfo(stream: Stream, expanded : MutableState<Boolean>) {
 
     AnimatedVisibility(
         visible = expanded.value,
-        enter = fadeIn(animationSpec = tween(1000)),
-        exit = fadeOut(animationSpec = tween(1000))
+        enter = fadeIn(animationSpec = tween(1000))
     ) {
         Column {
             StreamTitle(stream = stream)
