@@ -18,10 +18,10 @@ class TwitchViewModel @Inject constructor(private val repository: Repository) : 
 
     private val _followedStreams = MutableSharedFlow<List<Stream>?>()
     private val _videos = MutableSharedFlow<List<Video>?>()
-    private val _streams = MutableStateFlow<List<Stream>?>(null)
+    private val _streams = MutableSharedFlow<List<Stream>?>()
     val followedStreams = _followedStreams.asSharedFlow()
     val videos = _videos.asSharedFlow()
-    val streams = _streams.asStateFlow()
+    val streams = _streams.asSharedFlow()
 
 
     fun getFollowedStreams (authorizationToken : String, clientId : String, userId : String) {
@@ -38,7 +38,7 @@ class TwitchViewModel @Inject constructor(private val repository: Repository) : 
         viewModelScope.launch {
             repository.getStreams(authorizationToken, clientId).collect { streams ->
                 if(streams != null) {
-                    _streams.value = streams
+                    _streams.emit(streams)
                 }
             }
         }
