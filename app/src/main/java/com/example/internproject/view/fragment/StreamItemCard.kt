@@ -54,7 +54,7 @@ fun StreamItemCard(stream: Stream) {
                     .padding(8.dp)
                     .fillMaxWidth(),
                 elevation = 2.dp,
-                backgroundColor = Color(0xFFCAC9C8)
+                backgroundColor = Color(0xFFA7D6CE)
             ) {
                 Column(modifier = Modifier.padding(8.dp)) {
                     ThumbnailImage(stream = stream)

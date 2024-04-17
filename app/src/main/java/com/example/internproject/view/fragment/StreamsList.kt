@@ -22,7 +22,7 @@ fun StreamsList(twitchViewModel : TwitchViewModel) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             contentPadding = PaddingValues(4.dp),
-            modifier = Modifier.padding(4.dp).background(Color(0xFFC5C3C3))
+            modifier = Modifier.padding(4.dp).background(Color(0xFFDBE7E5))
         ) {
             items(it.size) {index ->
                 val stream = it[index]
