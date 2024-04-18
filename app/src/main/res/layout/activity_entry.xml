@@ -4,16 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/twitch_background"
     tools:context=".view.activity.EntryActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_twitchLogin"
+        android:text="Welcome to the Twitch Android App\n Please login to enter the app"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="250dp"/>
 
     <Button
         android:id="@+id/bt_entryToMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login With Twitch"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="50dp"
+        android:drawableLeft="@drawable/twitch_app_logo_30dp"
+        android:padding="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_twitchLogin"
         app:layout_constraintEnd_toEndOf="parent"/>
 
 

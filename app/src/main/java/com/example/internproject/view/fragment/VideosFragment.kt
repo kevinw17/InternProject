@@ -77,9 +77,12 @@ class VideosFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    binding.pbVideos.visibility = View.VISIBLE
+                    twitchViewModel.isLoading.collect { isLoading ->
+                        binding.pbVideos.visibility = if (isLoading) View.VISIBLE else View.GONE
+                    }
+                }
+                launch {
                     twitchViewModel.videos.collect { videos ->
-                        binding.pbVideos.visibility = View.GONE
                         if (videos != null) {
                             videosAdapter.submitList(videos)
                         }

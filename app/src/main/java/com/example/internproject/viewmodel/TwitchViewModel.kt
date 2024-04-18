@@ -28,7 +28,9 @@ class TwitchViewModel @Inject constructor(private val repository: Repository) : 
 
     fun getFollowedStreams (authorizationToken : String, clientId : String, userId : String) {
         viewModelScope.launch {
+            _isLoading.value = true
             repository.getFollowedStreams(authorizationToken, clientId, userId).collect { streams ->
+                _isLoading.value = false
                 if( streams != null) {
                     _followedStreams.emit(streams)
                 }
@@ -50,7 +52,9 @@ class TwitchViewModel @Inject constructor(private val repository: Repository) : 
 
     fun getVideos (authorizationToken : String, clientId : String, userId : String, type: String) {
         viewModelScope.launch {
+            _isLoading.value = true
             repository.getVideos(authorizationToken, clientId, userId, type).collect { videos ->
+                _isLoading.value = false
                 if( videos != null) {
                     _videos.emit(videos)
                 }
