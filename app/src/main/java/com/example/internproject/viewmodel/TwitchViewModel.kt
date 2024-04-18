@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.internproject.model.Stream
 import com.example.internproject.model.Video
-import com.example.internproject.repository.Repository
+import com.example.internproject.repository.RepositoryInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TwitchViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class TwitchViewModel @Inject constructor(private val repository: RepositoryInterface) : ViewModel() {
 
     private val _followedStreams = MutableSharedFlow<List<Stream>?>()
     private val _videos = MutableSharedFlow<List<Video>?>()
