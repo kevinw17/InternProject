@@ -74,7 +74,9 @@ class StreamsFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
+                    binding.pbStreams.visibility = View.VISIBLE
                     twitchViewModel.streams.collect { streams ->
+                        binding.pbStreams.visibility = View.GONE
                         if (streams != null) {
                             streamsAdapter.submitList(streams)
                         }

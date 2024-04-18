@@ -20,4 +20,11 @@
         android:textSize="20sp"
         android:visibility="gone"/>
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pb_followedStreams"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
 </FrameLayout>

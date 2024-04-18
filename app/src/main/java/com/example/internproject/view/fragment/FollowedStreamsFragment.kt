@@ -75,7 +75,9 @@ class FollowedStreamsFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
+                    binding.pbFollowedStreams.visibility = View.VISIBLE
                     twitchViewModel.followedStreams.collect { streams ->
+                        binding.pbFollowedStreams.visibility = View.GONE
                         if(streams.isNullOrEmpty()) {
                             binding.tvNoStreamAvailable.visibility = View.VISIBLE
                             binding.rvFollowedStreams.visibility = View.GONE

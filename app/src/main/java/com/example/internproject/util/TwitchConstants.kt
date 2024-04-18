@@ -9,7 +9,7 @@ object TwitchConstants {
     val TOKEN_ARGUMENT = "twitch_access_token"
     val IMAGE_WIDTH = 1280
     val IMAGE_HEIGHT = 960
-    val VIDEO_USER_ID = "191043512"
+    val VIDEO_USER_ID = "70225218"
     val VIDEO_TYPE = "archive"
     val REDIRECT_URI = "https://com.example.internproject"
     val TWITCH_AUTH_URL = String.format("https://id.twitch.tv/oauth2/authorize?client_id=%s&redirect_uri=%s&response_type=token&scope=user:read:follows", CLIENT_ID, REDIRECT_URI)
