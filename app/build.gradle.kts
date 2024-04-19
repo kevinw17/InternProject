@@ -61,6 +61,9 @@ dependencies {
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
     testImplementation(libs.junit)
+    testImplementation("junit:junit:4.12")
+    testImplementation("junit:junit:4.12")
+//    testImplementation(libs.junit.jupiter)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
@@ -105,8 +108,12 @@ dependencies {
     implementation (libs.ui.tooling.preview)
     debugImplementation (libs.ui.tooling)
 
+    // Unit Test
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockk)
 
-//    annotationProcessor(libs.glide.compiler)
 }
 kapt {
     correctErrorTypes = true
