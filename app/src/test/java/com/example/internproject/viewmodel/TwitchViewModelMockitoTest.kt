@@ -1,6 +1,5 @@
 package com.example.internproject.viewmodel
 
-import com.example.internproject.model.Stream
 import com.example.internproject.repository.RepositoryInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -43,7 +42,7 @@ class TwitchViewModelMockitoTest {
         val clientId = "clientId"
         val userId = "userId"
 
-        `when`(repository.getFollowedStreams(authorizationToken, clientId, userId)).thenReturn(flow { emit(listOf<Stream>()) })
+        `when`(repository.getFollowedStreams(authorizationToken, clientId, userId)).thenReturn(flow { emit(listOf()) })
         viewModel.getFollowedStreams(authorizationToken, clientId, userId)
 
         verify(repository, times(1)).getFollowedStreams(authorizationToken, clientId, userId)

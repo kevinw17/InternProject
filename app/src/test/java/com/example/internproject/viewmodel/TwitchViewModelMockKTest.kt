@@ -1,6 +1,5 @@
 package com.example.internproject.viewmodel
 
-import com.example.internproject.model.Stream
 import com.example.internproject.repository.RepositoryInterface
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -41,7 +40,7 @@ class TwitchViewModelMockKTest {
         val authorizationToken = "authorizationToken"
         val clientId = "clientId"
 
-        coEvery { repository.getStreams(authorizationToken, clientId) } returns flow { emit(listOf<Stream>()) }
+        coEvery { repository.getStreams(authorizationToken, clientId) } returns flow { emit(listOf()) }
 
         viewModel.getStreams(authorizationToken, clientId)
 
