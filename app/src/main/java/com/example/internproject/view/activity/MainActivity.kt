@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         twitchViewModel = ViewModelProvider(this)[TwitchViewModel::class.java]
         setContentView(binding.root)
-        binding.tbMainActivity.title = "Streams"
         gotoStreamFragment()
         bottomNav()
     }
@@ -38,22 +37,18 @@ class MainActivity : AppCompatActivity() {
         binding.bnMainActivity.setOnItemSelectedListener { menuItem ->
             when(menuItem.itemId){
                 R.id.navigation_streams -> {
-                    binding.tbMainActivity.title = "Streams"
                     gotoStreamFragment()
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_compose -> {
-                    binding.tbMainActivity.title = "Compose"
                     gotoComposeFragment()
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_followed_streams -> {
-                    binding.tbMainActivity.title = "Followed Streams"
                     gotoFollowedFragment()
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_videos -> {
-                    binding.tbMainActivity.title = "Videos"
                     gotoVideoFragment()
                     return@setOnItemSelectedListener true
                 }
@@ -66,6 +61,7 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.fragments.contains(fragment)
 
     private fun gotoStreamFragment() {
+        binding.tbMainActivity.title = "Streams"
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         if (::streamsFragment.isInitialized.not() || fragmentManagerContainsCurrentFragment(streamsFragment).not()) {
             streamsFragment = StreamsFragment.newInstance()
@@ -75,6 +71,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun gotoComposeFragment() {
+        binding.tbMainActivity.title = "Compose"
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         if (::composeFragment.isInitialized.not() || fragmentManagerContainsCurrentFragment(composeFragment).not()) {
             composeFragment = ComposeFragment.newInstance()
@@ -84,6 +81,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun gotoFollowedFragment() {
+        binding.tbMainActivity.title = "Followed Streams"
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         if (::followedStreamsFragment.isInitialized.not() || fragmentManagerContainsCurrentFragment(followedStreamsFragment).not()) {
             followedStreamsFragment = FollowedStreamsFragment.newInstance()
@@ -93,6 +91,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun gotoVideoFragment() {
+        binding.tbMainActivity.title = "Videos"
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         if (::videosFragment.isInitialized.not() || fragmentManagerContainsCurrentFragment(videosFragment).not()) {
             videosFragment = VideosFragment.newInstance()
